@@ -72,6 +72,25 @@
   .req { font-size: 13.5px; color: var(--muted); }
   .req code { background: var(--card-bg); padding: 2px 6px; border-radius: 4px; }
 
+  .steps { padding: 0; margin: 0; counter-reset: step; list-style: none; }
+  .steps li {
+    counter-increment: step; position: relative; padding: 4px 0 20px 40px;
+    border-left: 1px solid var(--line); margin-left: 15px;
+  }
+  .steps li:last-child { padding-bottom: 0; border-left-color: transparent; }
+  .steps li:before {
+    content: counter(step); position: absolute; left: -15px; top: 0;
+    width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 13px; font-weight: 700; color: var(--on-accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+  .steps h3 { margin: 3px 0 6px; font-size: 15px; }
+  .steps p { margin: 0; font-size: 13.5px; color: var(--muted); }
+  .steps code {
+    background: var(--card-bg); border: 1px solid var(--line); padding: 1px 6px;
+    border-radius: 4px; font-size: 12.5px; word-break: break-all;
+  }
+
   footer { padding: 32px 0 48px; text-align: center; font-size: 12.5px; color: var(--muted); }
 
   .banner {
@@ -141,6 +160,33 @@
     <section id="requirements">
       <h2>Requirements</h2>
       <p class="req">Windows 10/11 &middot; a valid SAP account with ADT access &middot; a <a href="https://claude.com/product/claude-code">Claude Code</a> subscription or AWS Bedrock access (required &mdash; powers the AI agent) &middot; <code>ABAP Studio-portable.exe</code>, no installation needed</p>
+    </section>
+
+    <section id="install">
+      <h2>How to install</h2>
+      <p class="req" style="margin-bottom:20px;">ABAP Studio is the desktop app itself. It talks to your SAP system through <strong>sap-mcp</strong>, a small companion server that runs locally on your machine and connects using your own SAP credentials &mdash; nothing about your code or data passes through us.</p>
+      <ol class="steps">
+        <li>
+          <h3>Install Node.js</h3>
+          <p>Download and install Node.js 20.12 or later from <a href="https://nodejs.org">nodejs.org</a> if you don't already have it. This is what runs the sap-mcp server &mdash; a one-time setup step.</p>
+        </li>
+        <li>
+          <h3>Download sap-mcp</h3>
+          <p>Get it from <a href="https://github.com/Tjarliman/sap-mcp">github.com/Tjarliman/sap-mcp</a> (click Code &rarr; Download ZIP, or clone it) and extract it to <code>%USERPROFILE%\sap-mcp</code> &mdash; ABAP Studio looks there by default.</p>
+        </li>
+        <li>
+          <h3>Install its dependencies</h3>
+          <p>Open a terminal in the extracted <code>sap-mcp</code> folder and run <code>npm install</code>. You only need to do this once.</p>
+        </li>
+        <li>
+          <h3>Add your SAP connection details</h3>
+          <p>Copy <code>.env.example</code> to <code>.env</code> in that same folder, then fill in your SAP system's host, client, username and password. This file stays on your machine and is never uploaded anywhere.</p>
+        </li>
+        <li>
+          <h3>Download and run ABAP Studio</h3>
+          <p>Get <code>ABAP Studio-portable.exe</code> from your purchase confirmation and run it directly &mdash; no installer needed. On first launch, enter your license key (or just start using it &mdash; the free trial needs no key at all) and connect a Claude Code subscription or AWS Bedrock credentials in Settings.</p>
+        </li>
+      </ol>
     </section>
 
     <footer>
